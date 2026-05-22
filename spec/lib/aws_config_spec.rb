@@ -3,6 +3,7 @@ require "spec_helper"
 describe AWSConfig do
   let(:sample_config_file) { File.expand_path("../../samples/config.txt", __FILE__) }
   let(:sample_creds_file) { File.expand_path("../../samples/credentials.txt", __FILE__) }
+
   before do
     AWSConfig.config_file = sample_config_file
     AWSConfig.credentials_file = sample_creds_file

@@ -10,9 +10,7 @@ module AWSConfig
             profile_resolver.add Parser.parse(File.read(credentials_file), true)
           end
 
-          if File.exist?(config_file)
-            profile_resolver.add Parser.parse(File.read(config_file))
-          end
+          profile_resolver.add Parser.parse(File.read(config_file))
 
           profile_resolver.profiles
         else
