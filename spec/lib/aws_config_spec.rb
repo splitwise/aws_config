@@ -3,6 +3,7 @@ require "spec_helper"
 describe AWSConfig do
   let(:sample_config_file) { File.expand_path("../../samples/config.txt", __FILE__) }
   let(:sample_creds_file) { File.expand_path("../../samples/credentials.txt", __FILE__) }
+
   before do
     AWSConfig.config_file = sample_config_file
     AWSConfig.credentials_file = sample_creds_file
@@ -23,5 +24,23 @@ describe AWSConfig do
     expect(described_class["default"]["s3"]["max_concurrent_requests"]).
       to eq "100101"
     expect(described_class["default"]["s3"]["max_queue_size"]).to eq "20"
+  end
+
+  context 'when the credentials file is missing' do
+    let(:sample_creds_file) { nil }
+
+    it 'should return profiles from the config' do
+      expect(described_class['testing-config-only'].aws_access_key_id).to eq "TestingConfigOnlyAccessKey01"
+      expect(described_class['testing-config-only'].region).to eq "us-west-2"
+    end
+  end
+
+  context 'when the config file is missing' do
+    let(:sample_config_file) { nil }
+
+    it 'should return profiles from the config' do
+      expect(described_class['testing-credentials-only'].aws_access_key_id).to eq "TestingCredentialsOnlyAccessKey01"
+      expect(described_class['testing-credentials-only'].region).to eq "us-west-2"
+    end
   end
 end

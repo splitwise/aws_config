@@ -12,3 +12,7 @@ output=json
 region=us-west-2
 source_profile=testing
 
+[profile testing-config-only]
+region=us-west-2
+aws_access_key_id=TestingConfigOnlyAccessKey01
+aws_secret_access_key=Testing/Secret/Access/Config/Only/Key/01
